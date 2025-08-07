@@ -1,7 +1,3 @@
-plugins {
-    kotlin("kapt")
-}
-
 repositories {
     maven {
         name = "papermc"
@@ -14,18 +10,18 @@ repositories {
 }
 
 dependencies {
-    kapt(libs.velocity)
     compileOnly(libs.velocity)
     compileOnly(libs.bungeecord)
 
     compileOnly(libs.gson)
     compileOnly(projects.sdk.sdkJava)
 
-    implementation(projects.addons.api)
+    compileOnly(projects.addons.api)
+    runtimeOnly(projects.addons.api)
 }
 
 tasks.processResources {
     filesMatching(listOf("plugin.yml", "velocity-plugin.json")) {
-        expand("version" to version)
+        expand("version" to project.version)
     }
 }

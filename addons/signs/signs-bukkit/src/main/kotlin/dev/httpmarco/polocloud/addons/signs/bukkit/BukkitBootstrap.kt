@@ -4,7 +4,18 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class BukkitBootstrap : JavaPlugin() {
 
+    companion object {
+        lateinit var plugin: JavaPlugin
+    }
+
+    init {
+        plugin = this
+    }
+
     override fun onEnable() {
-        BukkitConnectors()
+        // init connectors and configuration files
+        BukkitConnectors
+
+        getCommand("signs")!!.setExecutor(BukkitSignCommand())
     }
 }
