@@ -13,17 +13,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class PlayerProvider implements SharedPlayerProvider<PolocloudPlayer> {
+public final class PlayerProvider implements SharedPlayerProvider<PolocloudPlayer> {
 
+    private PlayerActorAdapter actorAdapter = new EmptyPlayerActor();
     private final PlayerControllerGrpc.PlayerControllerBlockingStub blockingStub;
     private final PlayerControllerGrpc.PlayerControllerFutureStub futureStub;
 
     public PlayerProvider(ManagedChannel channel) {
         this.blockingStub = PlayerControllerGrpc.newBlockingStub(channel);
         this.futureStub = PlayerControllerGrpc.newFutureStub(channel);
-
-
-        this.blockingStub.messageRegister(Empty.newBuilder().build());
     }
 
     @Override
@@ -65,5 +63,9 @@ public class PlayerProvider implements SharedPlayerProvider<PolocloudPlayer> {
     @Override
     public int playerCount() {
         return this.blockingStub.playerCount(Empty.getDefaultInstance()).getCount();
+    }
+
+    public void updateActorAdapter(@NotNull PlayerActorAdapter adapter) {
+        this.actorAdapter = adapter;
     }
 }

@@ -1,6 +1,8 @@
 package dev.httpmarco.polocloud.bridge.api
 
 import dev.httpmarco.polocloud.sdk.java.Polocloud
+import dev.httpmarco.polocloud.sdk.java.player.EmptyPlayerActor
+import dev.httpmarco.polocloud.sdk.java.player.PlayerActorAdapter
 import dev.httpmarco.polocloud.shared.PolocloudShared
 import dev.httpmarco.polocloud.shared.events.Event
 import dev.httpmarco.polocloud.shared.events.definitions.service.ServiceChangeStateEvent
@@ -13,10 +15,17 @@ import dev.httpmarco.polocloud.v1.services.ServiceState
  * F = internal representation of registered server (e.g., RegisteredServer)
  * T = server info type used by the proxy (e.g., ServerInfo)
  */
-abstract class BridgeInstance<F, T>(protected val polocloud: PolocloudShared = Polocloud.instance()) {
+abstract class BridgeInstance<F, T>(
+    protected val polocloud: PolocloudShared = Polocloud.instance(),
+    playerActor: PlayerActorAdapter = EmptyPlayerActor()
+) {
 
     /** List of registered fallback servers */
     val registeredFallbacks = hashMapOf<Service, F>()
+
+    init {
+        Polocloud.instance().updatePlayerActorLogic(playerActor);
+    }
 
     fun processBind() {
         // Register all currently online servers of type SERVER at startup

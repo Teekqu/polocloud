@@ -17,7 +17,8 @@ import net.md_5.bungee.api.plugin.Listener
 import net.md_5.bungee.event.EventHandler
 import java.net.InetSocketAddress
 
-class BungeecordBridgeInstance : BridgeInstance<ServerInfo, ServerInfo>(), Listener {
+class BungeecordBridgeInstance : BridgeInstance<ServerInfo, ServerInfo>(playerActor = BungeecordPlayerActorAdapter()),
+    Listener {
 
     init {
         this.processBind()

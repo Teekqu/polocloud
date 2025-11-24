@@ -4,6 +4,7 @@ import dev.httpmarco.polocloud.sdk.java.events.EventProvider;
 import dev.httpmarco.polocloud.sdk.java.groups.GroupProvider;
 import dev.httpmarco.polocloud.sdk.java.logger.LoggerProvider;
 import dev.httpmarco.polocloud.sdk.java.platform.PlatformProvider;
+import dev.httpmarco.polocloud.sdk.java.player.PlayerActorAdapter;
 import dev.httpmarco.polocloud.sdk.java.player.PlayerProvider;
 import dev.httpmarco.polocloud.sdk.java.services.ServiceProvider;
 import dev.httpmarco.polocloud.sdk.java.information.CloudInformationProvider;
@@ -37,7 +38,7 @@ public final class Polocloud extends PolocloudShared {
     private final SharedEventProvider eventProvider;
     private final SharedServiceProvider<Service> serviceProvider;
     private final SharedGroupProvider<Group> groupProvider;
-    private final SharedPlayerProvider<PolocloudPlayer> playerProvider;
+    private final PlayerProvider playerProvider;
     private final SharedCloudInformationProvider<CloudInformation> cloudInformationProvider;
     private final Logger logger;
     private final SharedPlatformProvider<Platform> platformProvider;
@@ -131,5 +132,9 @@ public final class Polocloud extends PolocloudShared {
     @Override
     public @NotNull SharedTemplateProvider<?> templateProvider() {
         return this.templateProvider;
+    }
+
+    public void updatePlayerActorLogic(PlayerActorAdapter actorAdapter) {
+        this.playerProvider.updateActorAdapter(actorAdapter);
     }
 }
