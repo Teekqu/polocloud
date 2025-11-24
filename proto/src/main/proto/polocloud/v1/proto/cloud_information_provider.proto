@@ -2,17 +2,19 @@ syntax = "proto3";
 
 package dev.httpmarco.polocloud.v1.proto;
 
+import "google/protobuf/empty.proto";
+
 option java_package = "dev.httpmarco.polocloud.v1.information";
 option java_multiple_files = true;
 
 service CloudInformationController {
   rpc find(CloudInformationFindRequest) returns (CloudInformationFindResponse);
-  rpc findAll(CloudInformationFindAllRequest) returns (CloudInformationFindAllResponse);
+  rpc findAll(google.protobuf.Empty) returns (CloudInformationFindAllResponse);
   rpc findMinutes(CloudInformationFindMinutesRequest) returns (CloudInformationFindMinutesResponse);
   rpc findHours(CloudInformationFindHoursRequest) returns (CloudInformationFindHoursResponse);
   rpc findDays(CloudInformationFindDaysRequest) returns (CloudInformationFindDaysResponse);
   rpc findAverage(CloudInformationFindAverageRequest) returns (CloudInformationFindAverageResponse);
-  rpc cleanUp(CloudInformationCleanUpRequest) returns (CloudInformationCleanUpResponse);
+  rpc cleanUp(CloudInformationCleanUpRequest) returns (google.protobuf.Empty);
 }
 
 message CloudInformationFindRequest {
@@ -23,8 +25,6 @@ message CloudInformationFindRequest {
 message CloudInformationFindResponse {
   repeated CloudInformationSnapshot information = 1;
 }
-
-message CloudInformationFindAllRequest {}
 
 message CloudInformationFindAllResponse {
   repeated CloudInformationSnapshot information = 1;
@@ -69,9 +69,6 @@ message CloudInformationFindAverageResponse {
 message CloudInformationCleanUpRequest {
   int64 max_age_millis = 1;
 }
-
-message CloudInformationCleanUpResponse {}
-
 
 message CloudInformationSnapshot {
   int64 started = 1;

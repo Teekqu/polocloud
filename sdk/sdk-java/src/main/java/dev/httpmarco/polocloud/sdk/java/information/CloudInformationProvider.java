@@ -1,5 +1,6 @@
 package dev.httpmarco.polocloud.sdk.java.information;
 
+import com.google.protobuf.Empty;
 import dev.httpmarco.polocloud.shared.information.AggregateCloudInformation;
 import dev.httpmarco.polocloud.shared.information.SharedCloudInformationProvider;
 import dev.httpmarco.polocloud.shared.information.CloudInformation;
@@ -30,7 +31,7 @@ public final class CloudInformationProvider implements SharedCloudInformationPro
     @Override
     @NotNull
     public List<CloudInformation> findAll() {
-        return blockingStub.findAll(CloudInformationFindAllRequest.getDefaultInstance()).getInformationList().stream().map(CloudInformation.Companion::bindSnapshot).toList();
+        return blockingStub.findAll(Empty.getDefaultInstance()).getInformationList().stream().map(CloudInformation.Companion::bindSnapshot).toList();
     }
 
     @Override

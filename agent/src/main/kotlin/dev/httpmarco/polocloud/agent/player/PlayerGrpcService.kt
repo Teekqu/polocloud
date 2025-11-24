@@ -1,18 +1,17 @@
 package dev.httpmarco.polocloud.agent.player
 
+import com.google.protobuf.Any
 import dev.httpmarco.polocloud.agent.Agent
 import dev.httpmarco.polocloud.v1.player.PlayerControllerGrpc
-import dev.httpmarco.polocloud.v1.player.PlayerCountRequest
 import dev.httpmarco.polocloud.v1.player.PlayerCountResponse
 import dev.httpmarco.polocloud.v1.player.PlayerFindByNameRequest
 import dev.httpmarco.polocloud.v1.player.PlayerFindByServiceRequest
-import dev.httpmarco.polocloud.v1.player.PlayerFindRequest
 import dev.httpmarco.polocloud.v1.player.PlayerFindResponse
 import io.grpc.stub.StreamObserver
 
 class PlayerGrpcService : PlayerControllerGrpc.PlayerControllerImplBase() {
 
-    override fun findAll(request: PlayerFindRequest, responseObserver: StreamObserver<PlayerFindResponse>) {
+    override fun findAll(request: Any, responseObserver: StreamObserver<PlayerFindResponse>) {
         val builder = PlayerFindResponse.newBuilder()
         val playerStorage = Agent.playerStorage
 
@@ -63,10 +62,7 @@ class PlayerGrpcService : PlayerControllerGrpc.PlayerControllerImplBase() {
         responseObserver.onCompleted()
     }
 
-    override fun playerCount(
-        request: PlayerCountRequest,
-        responseObserver: StreamObserver<PlayerCountResponse>
-    ) {
+    override fun playerCount(request: Any, responseObserver: StreamObserver<PlayerCountResponse>) {
         val count = Agent.playerStorage.playerCount()
         val response = PlayerCountResponse.newBuilder()
             .setCount(count)
