@@ -13,7 +13,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "polocloudv3"
 include("sdk")
-include("proto")
 include("agent")
 include("platforms")
 include("launcher")
