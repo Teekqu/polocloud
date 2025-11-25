@@ -7,7 +7,7 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 
-private const val GITHUB_API_URL = "https://api.github.com/repos/httpmarco/polocloud/tags"
+private const val GITHUB_API_URL = "https://api.github.com/repos/thePolocloud/polocloud/tags"
 
 /**
  * Fetches a list of tag names from the GitHub API for the PoloCloud repository.
